@@ -1,0 +1,140 @@
+#FIXME might be inaccurate
+- question: How does QiTASC automate regression testing?
+  answer: Through continuous integration (Jenkins) with intaQt
+  tags:
+    - technical
+  source: https://www.qitasc.com/news/tutorial-continuous-integration-jenkins-with-intaQt/
+
+- question: On what platforms can I run intaQt?
+  answer: Windows, Linux, and macOS
+  tags:
+    - technical
+  source: https://www.qitasc.com/products-services/test-automation-software/intaQt/
+
+  # IOT Testing
+
+- question: What are the use cases of QiTASC's IOT testing tools?
+  answer: |
+    Functional E2E service testing,
+    Provisioning testing,
+    Load & stress testing,
+    CPE testing,
+    Protocol conformity testing,
+    Non-functional testing,
+    Simulation of device functions,
+    APP testing
+  tags:
+    - technical
+  source: https://www.qitasc.com/industries/iot-testing/
+
+- question: What devices can be tested with QiTASC remote lab?
+  answer: |
+    Mobile devices, audio control included,
+    VoIP devices,
+    ISDN & POTS lines,
+    CPE, WiFi access points, etc.,
+    IoT devices, including 3D housing, actuators & sensors
+  tags:
+    - technical
+    - remote
+  source: https://www.qitasc.com/news/remote-testing-covid/
+
+- question: What does the IoT setup include for remote lab?
+  answer: |
+    Hub,
+    Door/window contact,
+    Motion detector,
+    Bulb,
+    Smoke detector,
+    Generic platform controller
+  tags:
+    - remote
+    - technical
+  source: https://www.qitasc.com/products-services/remote-testing-lab/
+
+  # AUDIO
+
+- question: How do i test audio if my phone lacks an audio port?
+  answer: |
+    We developed a phone hub to offer audio support for recording and reading out audio signals. 
+    Because newer Android phones lack an audio port we developed a Bluetooth adapter containing three Bluetooth antennas.
+  tags:
+    - technical
+    - audio
+  source: https://www.qitasc.com/products-services/remote-testing-lab/
+
+- question: How do I test audio-driven systems with intaQt?
+  answer: |
+    With intaQt audio plugin that is currently used for monitoring speech channel quality as well as recording and comparing
+    audio files (Audio Fingerprinting) within intaQt test cases.
+  tags:
+    - technical
+    - audio
+  source: https://www.qitasc.com/news/intaQt-audio-plugin/
+
+- question: How speech channel monitoring works?
+  answer: |
+    Playing the reference audio file: The reference audio file is a fixed audio file that is located on the Raspberry Pi's
+    Audio Service. It consists of beeps with a duration of 300 milliseconds and a frequency of 800 Hz or 1100 Hz. The pauses
+    between the beeps last 300 milliseconds.
+    Recording the playback: The recording is done on the phone that is not playing the reference audio file. The recording
+    is done once and in parallel for both directions (A to B and B to A).
+    Analyzing the recording: The recording is analyzed to detect the locations and durations of beeps and pauses. This is done
+    using three criteria:
+    The total number of beeps must meet or exceed the minimum threshold of expected beeps.
+    The recording's predominant frequency must match the beeps' nominal frequency (800 Hz or 1100 Hz).
+    The pause position and duration must be correct.
+  tags:
+    - technical
+    - audio
+  source: https://www.qitasc.com/news/intaQt-audio-plugin/
+
+- question: How audio fingerprinting works?
+  answer: |
+    A given audio recording is compared to a set of reference recordings by using the intaQt Audio Matcher. 
+    The Audio Matcher reads the audio recording and uses an algorithm to compute a collection of Audio Fingerprints. 
+    This collection of fingerprints is characteristic of the recording. 
+    The fingerprints of the recording to be assessed is then compared to a collection of fingerprints that is calculated from reference recordings. 
+    Every comparison yields a similarity score between 0 and 100. A higher number indicates a stronger similarity to the reference recording.
+  tags:
+    - technical
+    - audio
+  source: https://www.qitasc.com/news/intaQt-audio-plugin/
+
+- question: How a match is achieved with Audio Fingerprinting?
+  answer: |
+    intaQt matches a recording against a set of recordings announcements by:
+    Calculating the recording's fingerprints.
+    Comparing the recording's fingerprints with all reference announcements' fingerprints. Every comparison yields a similarity score.
+    The best match is the match with the highest number of equal fingerprints.,
+  tags:
+    - technical
+    - audio
+  source: https://www.qitasc.com/news/intaQt-audio-plugin/
+
+- question: What do i need to use the Audio Plugin of intaQt?
+  answer: |
+    A Raspberry Pi for each phone that is used for audio recording.
+    The Raspberry Pi running a service called Audio Service.
+    Each Raspberry Pi is connected through a USB sound card to a given phone using a special audio cable.
+    A phone's unique mapping to the Raspberry Pi configured via intaQt to link the phone's serial number to the Raspberry's IP address.
+  tags:
+    - technical
+    - audio
+
+- question: Where can the intaQt Audio service be usefull?
+
+  answer: |
+    Verifying IVR prompts, for audio recordings that subscribers hear or for assessing sound quality.
+  tags:
+    - technical
+    - audio
+  source: https://www.qitasc.com/news/intaQt-audio-plugin/
+
+- question: What is inside the protable telecom testing suitcase?
+  answer: |
+    It inherits 6 phones, an IPS, phone hub and fan.
+  tags:
+    - technical
+  source: https://www.qitasc.com/products-services/portable-testing-lab-suitcase/
+

@@ -1,0 +1,384 @@
+#SETUP (George Sinan)
+
+- question: What are the system requirements to run intaQt?
+  answer: |
+    Operating system - Windows 7 and later / Ubuntu 14.04 and later / Mac OS X Mavericks 10.9 and later.
+    Processor - Minimum: Intel Core 2 Duo or equivalent; Recommended: Intel i3/i5 or equivalent.
+    Memory - Minimum: 2 GB RAM; Recommended: 4 GB RAM.  
+    Disk Space (not including report storage) - 500 MB; Recommended: 1 GB.
+    Other - USB 2.0.
+
+  tags:
+    - technical
+    - setup
+  source: https://docs.qitasc.com/intact/systemrequirements/#dns-server
+
+- question: What Android devices are supported?
+  answer: |
+    Nexus 5,
+    Nexus 5X,
+    Nokia 6,
+    Samsung Galaxy S5 (with limited support),
+    Samsung Galaxy S6/S6 Edge (with limited support),
+    Samsung Galaxy S7/S7 Edge (with limited support),
+    Samsung Galaxy S8 (with limited support),
+    Additionally, there is limited support for all Android phones running Android 6 or above.
+  tags: 
+    - technical
+    - setup
+  source: https://docs.qitasc.com/intact/systemrequirements/
+
+- question: What type of phones are supported with intaQt?
+  answer: intaQt supports a list of Android and VoIP devices.
+  tags: 
+    - technical
+    - setup
+  source: https://docs.qitasc.com/intact/systemrequirements/
+
+- question: I am having frequent timeouts with intaQt.
+  answer: A DNS Server must be configured on the network that is running intaQt and the intaQt Phone Service. If no DNS Server is configured, timeouts may occur.
+  tags: 
+    - setup
+    - technical
+  source: https://docs.qitasc.com/intact/systemrequirements/
+
+- question: Can i manage sim cards with intaQt?
+  answer: Yes, intaQt supports interfaces for SIM Arrays by Implementa.
+  tags: 
+    - setup
+    - technical
+  source: https://docs.qitasc.com/intact/systemrequirements/
+
+# prerequisite software
+
+- question: What software are prerequisite to run intaQt?
+  answer: |
+    Windows: 
+      Android SDK tools package, 
+      USB drivers for the telephones being used .
+      OpenSC Version 0.12.0 64-bit (if using a card reader).
+      Note: Android SDK is provided by the Cockpit for the duration of an intaQt session. This does not install the product itself, but provides functionality for the duration of the session.
+    Linux: 
+      Android SDK tools package
+    MacOS: 
+      Xcode Command Line Tools, 
+      Homebrew, Android SDK (Recommended), 
+      Java SE 8 (Recommended), 
+      OpenSC (if using a card reader)
+      Note: Android SDK and Java SE 8 are both provided by the Cockpit for the duration of an intaQt session. This does not install the products themselves, but provides functionality for the duration of the session.
+  tags: 
+    - technical
+    - setup
+  source: https://docs.qitasc.com/installation/prerequisitesoftware/
+
+- question: How do i install Brew on mac?
+  answer: Run the command in a terminal. ruby -e "(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  tags: 
+    - setup
+    - technical
+  source: https://docs.qitasc.com/installation/prerequisitesoftware/
+
+# Cockpit
+- question: How do i install intaQt and other QiTASC products?
+  answer: |
+    The QiTASC Cockpit is used for installing, updating and maintaining all intaQt products. 
+    It can be executed either from its graphical user interface or using the command line.
+    Windows: https://s3-eu-west-1.amazonaws.com/qitasc-installer/installer-cli/latest/windows/qitasc.exe
+    Linux: https://s3-eu-west-1.amazonaws.com/qitasc-installer/installer-cli/latest/linux/qitasc
+    MacOS: https://s3-eu-west-1.amazonaws.com/qitasc-installer/installer-cli/latest/darwin/qitasc
+    Important! Mac OS users should use either the Google Chrome or Mozilla Firefox web browser.
+  tags: 
+    - setup
+    - technical
+  source: https://docs.qitasc.com/installation/cockpit/
+
+# Cockpit CLI
+
+- question: How do i use the cockpit cli?
+  answer: |
+    To access the installer, navigate to the intaQt directory.
+
+    Syntax - Windows Users
+    qitasc <action ActionType| <name ProductName| <parameter Parameter|
+    Syntax - Linux and Mac Users
+    ./qitasc <action ActionType| <name ProductName| <parameter Parameter|
+
+    Parameters
+    action - The action being performed by the installer
+    name (Optional) - The product addressed by the action
+    parameter (Optional) - Additional parameters, for example, to specify a directory or version number
+
+    Windows Users
+    qitasc install intaqt-studio
+
+    Linux and Mac OS Users
+    qitasc install intaqt-studio
+
+  tags: 
+    - setup
+    - technical
+  source: https://docs.qitasc.com/installation/cockpit/
+
+- question: How do i install specific versions of software with cockpit cli?
+  answer: |
+    The --snapshots and --releases parameters can be passed to both the install and update commands. These allow switching between:
+    Using non-release versions of intaQt products that may be required for specific use cases (with --snapshots).
+    Using official releases of intaQt products (with --releases).
+
+    Windows Users:
+    qitasc install intaqt-studio --snapshots
+
+    Linux and Mac OS Users:
+    qitasc install intaqt-studio --snapshots
+  tags: 
+    - setup
+    - technical
+  source: https://docs.qitasc.com/installation/commandlinecockpit/
+
+- question: How do i get the qitasc folder?
+  answer: |
+    First, download the QiTASC Cockpit:
+    Windows: https://s3-eu-west-1.amazonaws.com/qitasc-installer/installer-cli/latest/windows/qitasc.exe
+    Linux: https://s3-eu-west-1.amazonaws.com/qitasc-installer/installer-cli/latest/linux/qitasc
+    MacOS: https://s3-eu-west-1.amazonaws.com/qitasc-installer/installer-cli/latest/darwin/qitasc 
+    Important! Mac OS users should use either the Google Chrome or Mozilla Firefox web browser.  
+    This will download a file called qitasc (lowercase).
+    Next, launch the application. This will create a folder called QiTASC in the home directory, 
+    for example: /username/QiTASC, where all intaQt-related folders and files will be downloaded and stored by default.
+  tags: 
+    - setup
+    - technical
+  source: https://docs.qitasc.com/installation/installingintactlicenses/
+
+- question: I get an error "...qitasc does not exist".
+  answer: |
+    Linux or Mac OS users may see a message stating ...qitasc does not exist appears. 
+    If so, the user execution permissions need to be set. 
+    First, use the command line to navigate to where the qitasc application is stored. Then enter:
+    chmod u+x qitasc
+    Next, move the qitasc application into the main QiTASC directory.
+  tags: 
+      - setup
+      - technical
+  source: https://docs.qitasc.com/installation/installingintactlicenses/
+
+- question: How do i install the licence?
+  answer: |
+    To start the installation, save the license (ending with .lic or .license) to the desired directory. 
+    Next, navigate to the QiTASC directory from the command line.
+
+    To install the intaQt License, enter:
+    Windows Users
+    qitasc launch license-installer intaqt <filepath Path|/<intaqtLicenseName|.license
+    Linux and Mac OS Users
+    qitasc launch license-installer intaqt <filepath Path|/<intaqtLicenseName|.license
+
+    Parameters:
+    filepath - The location of the license file
+    intaqtLicenseName - The license file's name
+
+    Example
+    qitasc launch license-installer intaqt license-installer/bin/john-doe-server.license
+  tags: 
+      - setup
+      - technical
+  source: https://docs.qitasc.com/installation/installingintactlicenses/
+  
+- question: I get the error "hs_pid Error & JVM Crash¶" upon launching intaQt.
+  answer: |
+    Upon launching intaQt, if there is an hs_pid error and JVM crashes, then this means that Open SC is missing and must be installed. 
+    Install Open SC and restart intaQt.
+  tags: 
+      - setup
+      - technical
+  source: https://docs.qitasc.com/installation/installingintactlicenses/
+
+#PROFILE AND MULTIPLE INSTANCES ##ERROR PRONE
+
+- question: Can i activate multiple intaQt instances with a single licence?
+  answer: No, Every instance must have its proper license. These licenses must be installed with the latest release of the QiTASC license-installer.
+  tags: 
+      - setup
+      - technical
+  source: https://docs.qitasc.com/installation/installerinstances/
+
+- question: Can i have multiple users with different permissions on a single intaQt installation?
+  answer: |
+    A single intaQt installation can be used by multiple users if each profile, for which a 
+    valid license has been installed, overwrites the necessary 
+    configurations from the Server.conf. (see: Additional Configurations below).
+  tags: 
+      - setup
+      - technical
+  source: https://docs.qitasc.com/installation/installerinstances/
+
+- question: With multiple profiles, we are still having a seperate instance for each user, right?
+  answer: |
+    Yes, you are indeed running separate instances of intaQt for each user. 
+    Each user has their own instance of intaQt, and they can use the same intaQt installation
+    as long as they have a valid license. However, it's important to note that while they share
+    the installation, each user's instance should have its own unique configurations based on
+    their profile to ensure proper isolation and customization for their specific needs.
+  tags: 
+      - setup
+      - technical
+      - ai generated
+  source: https://docs.qitasc.com/installation/installerinstances/
+
+- question: What are the steps for creating a new profile?
+  answer: |
+    Creating a new profile in intaQt involves several steps, including setting up a 
+    separate configuration folder for the profile and specifying its details. 
+    Here are the steps to create a new profile:
+
+    1. Navigate to the intaQt Installation Directory:
+      - Open a terminal or command prompt and navigate to the directory where intaQt is installed. 
+      This is typically the directory where intaQt's binaries and configuration files are located.
+
+    2. Create a Configuration Subfolder for the New Profile:
+      - Inside the `config` folder of your intaQt installation directory, create a new subfolder
+       with the name of your desired profile. This subfolder will hold the configuration files specific to this profile.
+
+      Example:
+      ```
+      config/
+      ├── default/
+      ├── customProfile/  <-- Create this folder for the new profile
+      ```
+
+    3. Create or Customize Profile-Specific Configuration Files:
+      - Inside the new profile's subfolder (`customProfile` in the example above), you can create or customize configuration files specific to this profile. These configuration files should contain settings and parameters relevant to the new profile.
+
+      Example:
+      ```
+      config/
+      ├── default/
+      ├── customProfile/
+      │   ├── Profile.conf
+      │   ├── AnotherConfig.conf
+      ```
+
+    4. Specify Profile Details in Configuration Files:
+      - In the profile-specific configuration files, specify the details and settings unique to this profile. These settings will overwrite any corresponding settings in the default configuration when this profile is used.
+
+    5. Start intaQt with the New Profile:
+      - When starting intaQt, you can specify the profile to use with the `-p` option followed by the profile name.
+
+      Example:
+      ```bash
+      intaqt -p customProfile
+      ```
+
+      This command starts intaQt using the configuration settings from the `customProfile` subfolder.
+  tags: 
+      - setup
+      - technical
+      - ai generated
+  source: https://docs.qitasc.com/installation/installerinstances/
+
+- question: How do I configure intaQt's ports?
+  answer: |
+    To configure intaQt's ports, you need to modify the relevant 
+    configuration files, specifically the configuration sections related to the components
+    that use ports. The components typically involved in port configuration include
+    `Commander`, `Intaqt2ApiAdapter`, and `HttpServer`. Here's a step-by-step guide
+    on how to change the listening port for intaQt:
+
+    1. Locate the Configuration Files:
+      - Navigate to the directory where intaQt is installed. You'll find a `config` folder that contains the configuration files you need to modify.
+
+    2. Edit the Configuration Files:
+      - Open the appropriate configuration files for the component(s) you want to change the listening port for. These files might include `server.conf` and any profile-specific configuration files if you're using profiles.
+
+    3. Locate the Configuration Sections:
+      - Inside the configuration files, locate the sections for the components you want to configure. For example, if you want to change the port for the `Commander`, find the `Commander` section. If you're using profiles, you may need to edit the profile-specific configuration files.
+
+    4. Modify the Port Settings:
+      - Within the relevant configuration section, look for a line specifying the port, and change the port number to your desired value. Ensure that you're editing the correct configuration file for the component you want to configure.
+
+      Example (changing the Commander port):
+
+      ```
+      Commander = {
+          port : 32220  # Change this port number to your desired value
+      }
+      ```
+
+      Example (changing the Intaqt2ApiAdapter port):
+
+      ```
+      Intaqt2ApiAdapter = {
+          adapterPort: 36012  # Change this port number to your desired value
+      }
+      ```
+
+    5. Save the Configuration File:
+      - After making the necessary changes, save the configuration file.
+
+    6. Restart intaQt:
+      - To apply the new port configuration, you'll need to restart intaQt. This can usually be done by stopping the currently running intaQt instance and then starting it again.
+
+    Now, intaQt should be using the new listening port you configured for the specified component. Make sure that any external systems or scripts interacting with intaQt are aware of the new port number.
+  tags: 
+    - setup
+    - technical
+    - ai generated
+  source: https://docs.qitasc.com/installation/installerinstances/
+
+- question: Can i view the currently configured profiles for an intaQt installation?
+  answer: |
+    To view the currently installed profiles, use the following:
+    license-installer -s <product Product|
+    Parameter:
+    product - The product installed. May be one of intaqt or intaqt-verification
+    Example:
+    license-installer -s intaqt
+
+  tags: 
+      - setup
+      - technical
+  source: https://docs.qitasc.com/installation/installerinstances/
+
+- question: Where do i find profile specific logs and data?
+  answer: |
+    When starting multiple intaQt Service instances on the same physical machine with the use of profiles, 
+    each instance has its own Reporting Service database and Scheduler database. 
+    On startup, the profile is used to specify the database URL. 
+
+    If the profile is the default profile, its databases are stored in:
+    intaqt/data/reporting/hsql (Reporting)
+    intaqt/data/quartz/hsql (Scheduler)
+
+    If the profile is any other named profile, its databases are stored in:
+    intaqt/data/<profileName|/reporting/hsql (Reporting)
+    intaqt/data/<profileName|/quartz/hsql (Scheduler)
+
+    If these directories do not exist upon intaQt's startup, they will be created and an empty database will be initialized. If the directory already exists, the existing database will be used.
+  tags: 
+    - setup
+    - technical
+  source: https://docs.qitasc.com/installation/installerinstances/
+
+# FOLDERS
+
+- question: Explain to me the folders i see in intaQt directory?
+  answer: |
+    The intaQt folder contains the following subfolders:
+
+    bin: This folder contains intaQt executable binaries.
+    config: This folder contains the default intaQt configuration files.
+    data: This folder contains internal data files necessary to run intaQt. It is not necessary to access any of these files.
+    lib: This folder contains internal software used by intaQt. It is not necessary to access any of these files.
+    licenses: This folder contains all the third-party licenses for the open-source software used by intaQt.
+    logs: This folder contains log files that are created as soon as intaQt starts. More information about log files can be found in the Reports and Logs section.
+    projects: This folder is the default location for projects and project-specific configurations.
+    reports: This folder contains documents which provide an overview of the test case's parameters and outcomes. Every time a test case is run, logs are generated with details of that test case. A report is also created in multiple formats: HTML, CSV, and XML. More information about reports can be found in the Reports and Logs section.
+    .autotest: This hidden folder contains report templates and Snom SIP configurations.
+  tags: 
+    - setup
+    - technical
+  source: https://docs.qitasc.com/installation/intactfolders/
+
+
+
+
