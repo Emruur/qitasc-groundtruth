@@ -1,0 +1,368 @@
+- question: How do i disable a configuration snippet?
+  answer: >
+    A configuration block may be deactivated by typing an underscore (_) before it. 
+    Deleting an underscore that precedes the configuration will activate it.
+
+    Deactivated Configuration Example:
+    _HttpServer  {
+        port = 8080
+  tags: 
+    - intaQT
+    - technical
+    - config
+  source: https://docs.qitasc.com/configuration/configuration/#default
+
+- question: I want to have some configurations in my project without changing the intaQt configuration.
+  answer: >
+    intaQt configuration files are loaded in a hierarchical manner to make test cases in different environments more maintainable.
+    Given a test case in the folder/subfolder of a project, the configuration will be loaded the following way:
+    intaQt configuration is used as a basis
+    The configuration files that reside in the project's root folder are merged
+    The configuration files located in a project's folder are merged
+    The configuration files located in a project's folder/subfolder are merged
+    Nested properties are merged recursively, but Atomic properties override previous values. 
+    The same is true when a sub folder's configuration is merged with a parent folder's configuration.
+
+    Example
+
+    Assuming the following configuration is configured at the intaQt level:
+
+    ContextObjects {
+        "a" : 4,
+        "b" : {
+            "c" : 1
+        }
+        "d" : { "e" : "foo" }
+    }
+    And the following configuration is configured at the project level:
+
+    ContextObjects {
+        "a" : 5,
+        "b" : {
+            "d" : 2
+        }
+        "d" : "bar"
+    }
+    The second configuration (project configuration) will be merged into the first one (intaQt configuration), resulting in:
+
+
+    ContextObjects {
+        "a" : 5,
+        "b" : {
+            "c" : 1,
+            "d" : 2
+        }
+        "d" : "bar"
+    }
+  tags: 
+    - intaQt
+    - technical
+    - config
+  source: https://docs.qitasc.com/configuration/configuration/#default
+
+- question: intaQt can't find the directory in a configuration file.
+  answer: > 
+    If you are using an absolute path such as "/Users/qitasc/myprojects/uisteps"
+    Check the name of the file and its directory path.
+    If you are using a relative path such as "../dirOutsideProject/languageDir"
+    resolving relative paths are works in the following behaviour:
+      - If path is absolute, use absolute path.
+      - If relative, resolve it from project root.
+      - If it does not resolve from project root, try it relative to the working directory.
+  tags: 
+    - intaQt
+    - technical
+    - config
+  source: https://docs.qitasc.com/configuration/configuration/#default
+
+- question: Help me configure my andriod phone with intaQt.
+  answer: > 
+    You can configure an anfroid phone with intaQT with the following sytax:
+    AndroidDevices {
+    <AndroidSerialNumber String> {
+        <propertyName String> = <propertyValue String>
+      }
+    }
+    Parameters:
+    AndroidSerialNumber - Represents the serial number of the Android device
+    propertyName - This is the property name used to identify phone type, such as color
+
+    The name can be chosen freely, however, two reserved property names exist:
+    "simChannel" tells intaQt that the device has the ability to change the SIM Card
+    "speechChannel" tells intaQt that the device has the ability to monitor the Speech Channel
+    propertyValue - The property's value, for example, a serial number or color
+
+    AndroidDevices {
+     "014E281E0301F015" {
+          "simChannel" = "SN#000014985EA5"
+     }
+    }
+  tags: 
+    - intaQt
+    - technical
+    - config
+  source: https://docs.qitasc.com/configuration/configuration/#default
+
+- question: How do i configure my android phone with the Audio Service?
+  answer: >
+    Define the audioServiceURL property of the Android Devices configuration.
+    Example:
+    AndroidDevices  = {
+      "00c09f44967c5764":  {
+        "audioServiceURL" : "http://127.0.0.1:10001"
+        }
+    }
+
+- question: How do i load sounds into Audio Service?
+  answer: >
+    The Audio Service running on Raspberry Pi provides a static resources directory, 
+    which holds all the files that are used for playback only. These files are not removed on resetting the service. 
+    The speech channel monitoring uses this directory to store its reference signals.
+
+    Define the Resources Directory
+
+    A command line option is used to define the static resources directory. 
+    The list of resources must be a flat hierarchy. Therefore there are no subdirectories allowed within 
+    the defined directory.
+
+    Syntax:
+    ./audioService -res <directory Path>
+
+    Parameter
+    directory - The directory name
+    Default value is set to /tmp
+    Example:
+    ./audioService -res /var/audio/resources
+
+    tags: 
+    - intaQt
+    - technical
+    - config
+    - audio
+  source: https://docs.qitasc.com/configuration/audioservice/#map-the-raspberry-pi-to-the-audio-service
+
+- question: What are context objects?
+  answer: >
+    Context Objects are a useful feature in test cases' steps that allow you to define and store reusable values
+    or strings for use within your test scripts. These objects make your test scripts more readable, 
+    maintainable, and efficient by centralizing the definition of frequently used values or strings. ,
+    Here's a breakdown of the syntax:
+
+    **Syntax:**
+
+    ```
+    ContextObjects {
+    <objectName Identifier> = <objectProperty String>
+    ...
+    }
+    ```
+
+    **Parameters:**
+
+    - `objectName`: The name you assign to the context object.
+    - `objectProperty`: The value or string associated with the context object.
+
+    **Examples:**
+
+    1. In the first example, various context objects are defined, such as `setCFU`, `removeCFU`, `nationalFormat`, and `tariffUnderTest`, each with its associated value or string.
+
+    ```yaml
+    ContextObjects {
+    setCFU          = "**21*"
+    removeCFU       = "*##21#"
+    nationalFormat  = "CC.NDC.NUMBER"
+    tariffUnderTest = "YourChosenTariff"
+    }
+    ```
+
+    2. Context objects can also contain nested objects or maps. For instance, the `soap` object contains the property `carAmount`, and the `keys` object contains the property `enter`.
+
+    ```yaml
+    ContextObjects {
+    color = "green"
+    soap {
+    carAmount = 50
+    }
+    keys {
+    enter = "\uE007"
+    }
+    ussdAccEnq = "*101#"
+    }
+    ```
+
+    3. You can define multiple context objects in separate blocks for better organization and readability.
+
+    ```yaml
+    ContextObjects {
+    color = "green"
+    soap {
+    carAmount = 50
+    }
+    }
+    ContextObjects {
+    keys {
+      enter = "\uE007"
+    }
+    }
+    ContextObjects {
+    ussdAccEnq = "*101#"
+    }
+    ```
+
+    4. Context objects can also contain lists and maps, as shown in the last example. `testList` is a list containing a string and a nested map, while `testMap` is a map with various data types as values.
+
+    ```yaml
+    ContextObjects {
+    testList    = ["a", { b = [3, 8] }]
+    testMap     = {abc = [1, 3, true, "bunny"]}
+    }
+    ```
+
+    By using context objects, you can make your test scripts more modular and easier to maintain, as you only need to update the values in one place if they change, rather than searching for and updating them throughout your test cases.
+
+  tags:
+    - config
+    - intaQt
+    - technical
+    - ai generated 
+
+  source: https://docs.qitasc.com/configuration/contextobjects/
+
+- question: I want to override a built in customstep.
+  answer: >
+    You can deactivate built-in steps and define your own custom steps.
+    intaQt's built-in Compound Steps are activated by default. These can be replaced by a 
+    Custom Implementation written in the Steps Language when default Steps are deactivated in the Glue configuration.
+
+    Syntax:
+    Glue = {
+        builtinTelephonySteps : <String>
+    }
+
+    Parameter:
+    builtinTelephonySteps - Whether intaQt's built-in Compound Steps are available or not
+    Must be one of "activated" or "deactivated"
+    Example:
+    Glue = {
+        path : ["/home/user/QiTASC/intaqt/customsteps"]
+        builtinTelephonySteps : "activated"
+    }
+
+
+  tags:
+    - config
+    - intaQt
+    - technical
+
+  source: https://docs.qitasc.com/configuration/glue/
+
+- question: How do i change the port of the intaQt's http server?
+  answer: >
+    Syntax:
+
+    HttpServer {
+        port = <Number>
+    }
+    Parameter
+
+    port - The port that the HTTP server listens on
+    Default value is set to 8080
+    Example
+
+
+    HttpServer  {
+        port = 8080
+    }
+  tags:
+    - config
+    - intaQt
+    - technical
+
+  source: https://docs.qitasc.com/configuration/httpserver/
+
+- question: Can i change the format of the generated reports?
+
+  answer: >
+    Yes, multiple report formats can be defined using intaQt's pre-formatted templates or user-defined templates.
+
+    Syntax
+    ReportFormats {
+        <Name> {
+            featureTemplateFilename = <String>
+            summaryTemplateFilename = <String>
+            summaryFilename = <String>
+            featureSuffix = <String>
+        }
+        ...
+    }
+    Parameters
+
+    formatName - The name assigned to the format configuration
+
+    featureTemplateUrl - The URL that holds the template for the Feature File report
+
+    summaryTemplateUrl - The URL that holds the template for the summary report
+
+    summaryFilename - Specifies the name of the file that contains the summary report
+
+    If unspecified, the summary report name will be index
+    featureSuffix - Replaces the test case's feature name with the specified configuration
+
+    Example
+
+
+    ReportFormats {
+        csv {
+            featureTemplateFilename = "../.autotest/report-templates/management.csv"
+        }
+        html {
+            featureTemplateFilename = "../.autotest/report-templates/management.html"
+            summaryTemplateFilename = "../.autotest/report-templates/summary.html"
+        }
+        xml {
+            featureTemplateFilename = "../.autotest/report-templates/management.xml"
+            summaryTemplateFilename = "../.autotest/report-templates/summary.xml"
+            summaryFilename = "summary"
+            featureSuffix = ""
+        }
+    }
+
+- question: How do i connect my phone with a sim emulator?
+  answer: >
+    In order for a phone to be recognized as a SIM Array phone, it needs to have both
+    the SIM Emulator and the Android Devices configured.
+
+    Sim Array Configuration:
+    SimEmulators {
+      <serialNoSimEmulator String> = <serialNoAndroidDevice String>
+    }
+    Example:
+    SimEmulators {
+      "SN#000014985EA5" = "014E281E0301F015"
+      "SN#000014996244" = "01498FE70D01101A"
+    }
+
+    Android device configuration:
+    AndroidDevices {
+     "014E281E0301F015" {
+          "simChannel" = "SN#000014985EA5"
+     }
+    }
+
+  tags: 
+    - technical
+    - config
+  source: https://docs.qitasc.com/configuration/androiddevices/#adconfig
+
+- question: How do i check the audio connection between two devices?
+  answer: >
+    Speech Channel Modules are used to confirm that an audio connection connection is 
+    established between two mobile devices and that they can hear each other. 
+    Speech Channel Modules and mobile devices always come in pairs that are 
+    connected both to each other and to the same machine running intaQt. 
+    The Speech Channel Module Compound Steps can then be used to monitor the speech channels.
+
+  tags:
+    - technical
+    - audio
+  source: https://docs.qitasc.com/configuration/speechchannel/

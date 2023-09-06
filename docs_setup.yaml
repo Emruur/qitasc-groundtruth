@@ -1,4 +1,4 @@
-#SETUP (George Sinan)
+#SETUP (Sinan)
 - question: What are the steps for creating a new profile?
   answer: |
     Creating a new profile in intaQt involves several steps, including setting up a 
@@ -165,6 +165,7 @@
     qitasc install intaqt-studio
 
   tags: 
+    - cockpit
     - setup
     - technical
   source: https://docs.qitasc.com/installation/cockpit/
@@ -181,6 +182,7 @@
     Linux and Mac OS Users:
     qitasc install intaqt-studio --snapshots
   tags: 
+    - cockpit
     - setup
     - technical
   source: https://docs.qitasc.com/installation/commandlinecockpit/
@@ -196,6 +198,7 @@
     Next, launch the application. This will create a folder called QiTASC in the home directory, 
     for example: /username/QiTASC, where all intaQt-related folders and files will be downloaded and stored by default.
   tags: 
+    - cockpit
     - setup
     - technical
   source: https://docs.qitasc.com/installation/installingintactlicenses/
@@ -208,6 +211,7 @@
     chmod u+x qitasc
     Next, move the qitasc application into the main QiTASC directory.
   tags: 
+    - cockpit
       - setup
       - technical
   source: https://docs.qitasc.com/installation/installingintactlicenses/
@@ -230,6 +234,7 @@
     Example
     qitasc launch license-installer intaqt license-installer/bin/john-doe-server.license
   tags: 
+    - cockpit
       - setup
       - technical
   source: https://docs.qitasc.com/installation/installingintactlicenses/
@@ -239,6 +244,7 @@
     Upon launching intaQt, if there is an hs_pid error and JVM crashes, then this means that Open SC is missing and must be installed. 
     Install Open SC and restart intaQt.
   tags: 
+    - cockpit
       - setup
       - technical
   source: https://docs.qitasc.com/installation/installingintactlicenses/

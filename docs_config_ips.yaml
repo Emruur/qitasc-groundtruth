@@ -1,0 +1,62 @@
+- question: What do i use to control phones remotely?
+  answer: >
+    The intaQt Phone Service is a standalone application that is responsible for managing remote phones, 
+    allowing them to communicate with intaQt. When intaQt tries to acquire a remote phone, the intaQt 
+    Phone Service will search its database of registered remote phones and select one.
+  tags: 
+    - IPS
+    - general
+
+  source: https://docs.qitasc.com/configuration/intaqtphoneservice/
+
+- question: How do i connect intaQt to a Remote Phone Instance?
+  answer: >
+    Syntax:
+    RemotePhoneServices {
+        <serviceAddress String> : <serviceName String>
+    }
+    Parameters
+    serviceAddress - This consists of two components:
+    The IP address of the machine that is running the service, or its Host name
+    The Port number of the socket that the service is running on, and must be separated by a colon (:)
+    serviceName - the user-assigned name for the RemotePhoneServices
+
+    Example
+    RemotePhoneServices = {
+
+        "192.168.1.1:6000" : "VIE"
+        "192.168.0.1" : "DUS1"
+    }
+
+  tags: 
+    - IPS
+    - technical
+    - config
+
+  source: https://docs.qitasc.com/configuration/intaqtphoneservice/
+
+- question: I am having authentication issues while connecting to the Phone Service
+  answer: >
+    If intaQt phone service requires authentication, it should be configured accordingly
+
+    RemoteServiceConf = {
+    requireAuthentication         : <Boolean>
+    identitiesDirectory           : <String>
+    }
+    equireAuthentication (optional)
+    true if an authentication key is required to connect to the intaQt Phone Service
+    false (default) otherwise
+    identitiesDirectory (optional) - Points to a valid directory that contains the authentication key required to connect to an intaQt Phone Service requiring authentication
+
+    Must be used if requireAuthentication is set to true
+    tags: 
+    - IPS
+    - technical
+    - config
+  tags: 
+    - IPS
+    - technical
+    - config
+  source: https://docs.qitasc.com/configuration/intaqtphoneservice/
+  
+
