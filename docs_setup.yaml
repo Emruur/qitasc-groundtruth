@@ -1,4 +1,54 @@
 #SETUP (George Sinan)
+- question: What are the steps for creating a new profile?
+  answer: |
+    Creating a new profile in intaQt involves several steps, including setting up a 
+    separate configuration folder for the profile and specifying its details. 
+    Here are the steps to create a new profile:
+
+    1. Navigate to the intaQt Installation Directory:
+      - Open a terminal or command prompt and navigate to the directory where intaQt is installed. 
+      This is typically the directory where intaQt's binaries and configuration files are located.
+
+    2. Create a Configuration Subfolder for the New Profile:
+      - Inside the `config` folder of your intaQt installation directory, create a new subfolder
+       with the name of your desired profile. This subfolder will hold the configuration files specific to this profile.
+
+      Example:
+      ```
+      config/
+      ├── default/
+      ├── customProfile/  <-- Create this folder for the new profile
+      ```
+
+    3. Create or Customize Profile-Specific Configuration Files:
+      - Inside the new profile's subfolder (`customProfile` in the example above), you can create or customize configuration files specific to this profile. These configuration files should contain settings and parameters relevant to the new profile.
+
+      Example:
+      ```
+      config/
+      ├── default/
+      ├── customProfile/
+      │   ├── Profile.conf
+      │   ├── AnotherConfig.conf
+      ```
+
+    4. Specify Profile Details in Configuration Files:
+      - In the profile-specific configuration files, specify the details and settings unique to this profile. These settings will overwrite any corresponding settings in the default configuration when this profile is used.
+
+    5. Start intaQt with the New Profile:
+      - When starting intaQt, you can specify the profile to use with the `-p` option followed by the profile name.
+
+      Example:
+      ```bash
+      intaqt -p customProfile
+      ```
+
+      This command starts intaQt using the configuration settings from the `customProfile` subfolder.
+  tags: 
+      - setup
+      - technical
+      - ai generated
+  source: https://docs.qitasc.com/installation/installerinstances/
 
 - question: What are the system requirements to run intaQt?
   answer: |
@@ -225,56 +275,6 @@
       - ai generated
   source: https://docs.qitasc.com/installation/installerinstances/
 
-- question: What are the steps for creating a new profile?
-  answer: |
-    Creating a new profile in intaQt involves several steps, including setting up a 
-    separate configuration folder for the profile and specifying its details. 
-    Here are the steps to create a new profile:
-
-    1. Navigate to the intaQt Installation Directory:
-      - Open a terminal or command prompt and navigate to the directory where intaQt is installed. 
-      This is typically the directory where intaQt's binaries and configuration files are located.
-
-    2. Create a Configuration Subfolder for the New Profile:
-      - Inside the `config` folder of your intaQt installation directory, create a new subfolder
-       with the name of your desired profile. This subfolder will hold the configuration files specific to this profile.
-
-      Example:
-      ```
-      config/
-      ├── default/
-      ├── customProfile/  <-- Create this folder for the new profile
-      ```
-
-    3. Create or Customize Profile-Specific Configuration Files:
-      - Inside the new profile's subfolder (`customProfile` in the example above), you can create or customize configuration files specific to this profile. These configuration files should contain settings and parameters relevant to the new profile.
-
-      Example:
-      ```
-      config/
-      ├── default/
-      ├── customProfile/
-      │   ├── Profile.conf
-      │   ├── AnotherConfig.conf
-      ```
-
-    4. Specify Profile Details in Configuration Files:
-      - In the profile-specific configuration files, specify the details and settings unique to this profile. These settings will overwrite any corresponding settings in the default configuration when this profile is used.
-
-    5. Start intaQt with the New Profile:
-      - When starting intaQt, you can specify the profile to use with the `-p` option followed by the profile name.
-
-      Example:
-      ```bash
-      intaqt -p customProfile
-      ```
-
-      This command starts intaQt using the configuration settings from the `customProfile` subfolder.
-  tags: 
-      - setup
-      - technical
-      - ai generated
-  source: https://docs.qitasc.com/installation/installerinstances/
 
 - question: Can i view the currently configured profiles for an intaQt installation?
   answer: |
