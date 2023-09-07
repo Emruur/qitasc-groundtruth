@@ -1,0 +1,547 @@
+- question: What is the structure of a feature file?
+  answer: >
+    The structure of a feature file follows a specific format, typically using the Gherkin language syntax, which is a plain-text language used for defining behavior in a human-readable format. Below is the general structure of a feature file:
+
+    ```gherkin
+    Feature: Feature Name
+      Description of the feature (optional)
+
+      Background:
+        Common steps shared by multiple scenarios (optional)
+
+      Scenario: Scenario Name 1
+        Given some initial context
+        When an action is performed
+        Then the expected outcome is observed
+
+      Scenario: Scenario Name 2
+        Given some different initial context
+        When another action is performed
+        Then a different expected outcome is observed
+
+      # More scenarios can be added here
+
+      Scenario Outline: Scenario Outline Name (optional)
+        Given some initial context with <placeholder1>
+        When an action is performed with <placeholder2>
+        Then the expected outcome with <placeholder3> is observed
+
+        Examples:
+          | placeholder1 | placeholder2 | placeholder3 |
+          | value1       | value2       | value3       |
+          | value4       | value5       | value6       |
+
+      # More scenario outlines can be added here
+
+      # Comments can be added using the "#" symbol
+    ```
+
+    Here's an explanation of the key elements in a feature file structure:
+
+    1. **Feature**: The "Feature" keyword followed by the name of the feature being tested. This provides a high-level description of what the feature file is testing.
+
+    2. **Description (optional)**: An optional free-text description of the feature, which provides additional context or details about the feature. This can be used to explain the purpose of the feature or any prerequisites.
+
+    3. **Background (optional)**: The "Background" keyword followed by a set of common steps that should be executed before every scenario in the feature file. It's useful for setting up a common context shared by multiple scenarios.
+
+    4. **Scenario**: The "Scenario" keyword followed by a scenario name. Each scenario describes a specific test case or user story and contains a sequence of Given-When-Then steps. It represents a single test case.
+
+    5. **Given, When, Then**: These are keywords used to structure the steps within a scenario:
+      - **Given**: Describes the initial context or setup for the scenario.
+      - **When**: Specifies the action or event that triggers the scenario.
+      - **Then**: Defines the expected outcome or result of the scenario.
+
+    6. **Scenario Outline (optional)**: The "Scenario Outline" keyword allows you to create parameterized scenarios that can be reused with different input values. It includes a template scenario with placeholders that are later filled in using an "Examples" table.
+
+    7. **Examples (for Scenario Outline)**: The "Examples" section defines a table with placeholders and values. Each row in the table represents a set of values to be substituted into the placeholders in the scenario outline. This allows you to run the same scenario with different input data.
+
+    8. **Comments**: Comments can be added using the "#" symbol to provide explanations, notes, or context within the feature file.
+
+    The structure of a feature file provides a clear and organized way to define and document test scenarios in a human-readable format. It serves as a bridge between non-technical stakeholders and the automated testing process, making it easier to understand the behavior being tested.
+
+  tags:
+    - feature
+    - technical
+    - ai generated
+  source: https://docs.qitasc.com/intactbasics/featurefiles/
+
+- question: What language are feature files are written in?
+  answer: >
+    Feature files are typically written in the Gherkin language. Gherkin is a plain-text
+    language that is easy to read and write, designed to be human-readable and understandable
+    by both technical and non-technical stakeholders. It is primarily used in behavior-driven 
+    development (BDD) and is commonly associated with BDD testing frameworks
+
+  tags: 
+    - feature
+    - technical
+    - ai generated
+  source: https://docs.qitasc.com/intactbasics/featurefiles/
+
+- question: Can i do macros in a feature file?
+  answer: >
+    Expressions wrapped around @@ markers will be statically evaluated before Feature File execution and replaced with the actual value that comes out of the evaluation. The Vocable Language syntax is supported, using Context Objects as scope for the evaluation.
+
+    Example Feature File - Using the Same Feature File with Multiple Phones In the example below, the Feature File includes an expression, phoneType wrapped with @@ markers. intaQt will pre-process the Feature File prior to its execution and evaluate and replace all @@phoneType@@ occurrences with the value assigned to the phoneType Context Object.
+
+    The actually Feature File will look as follows:
+
+
+    Feature: Testing with @@phoneType@@ phone
+
+        Scenario: Acquire an @@phoneType@@ phone
+
+            Given an @@phoneType@@ phone as A
+    Example Configuration The example above would access a Context Object called phoneType:
+
+
+    ContextObjects {
+        phoneType: "Android"
+    }
+    Example Execution Based on the Feature File and Configuration examples above, the actual steps executed from the Feature File will look as follows:
+
+
+    Feature: Testing with Android phone
+
+        Scenario: Acquire an Android phone
+
+            Given an Android phone as A
+  tags: 
+    - feature
+    - technical
+  source: https://docs.qitasc.com/intactbasics/annotations/
+
+- question: How do i pass a list to step definition?
+  answer: >
+    The {list} parameter type yields a List of objects that is passed as a single parameter to the Stepdef. Before being passed on, the List is evaluated. This means it can consist of arbitrary expressions referring to the scenario execution context.
+    The List elements can be separated by commas or the keyword and. If using and as a boolean operator, the corresponding element expression must be enclosed in parentheses.
+
+    Syntax
+
+
+    stepdef <definitionOfAStep Identifier {list}:, ... {list}
+        /<parameterDescription Identifier>/, ... /<parameterN Identifier> /
+        BLOCK
+    end
+    Parameters
+    definitionOfAStep - The step's string representation that describes what the step does
+
+    parameterN - The name assigned to the {list} parameter
+
+    Example
+
+
+    stepdef "print the list {list}" / param /
+        for el in param
+            println("" + el)
+        end
+    end
+    Feature File With Parentheses around Boolean Expression Example
+
+
+    And print the list 1,  (true and false), "abc" and 23 +3, 22
+    The example above creates a list, [1, false, "abc", 26, 22], and passes it with the name param to the Stepdef.
+
+    Feature File Without Parentheses around Boolean Expression Example
+
+
+    And print the list 1,  (true and false), "abc" and 23 +3, 22
+    In the example above, the and between true and false is interpreted as a list element delimiter, so param is [1, true, false, "abc", 26, 22].
+  tags: 
+    - stepdef
+    - technical
+  source: https://docs.qitasc.com/intactbasics/annotations/
+
+
+- question: Is it possible to create closures within a step definition?
+  answer: >
+    Function references allow the creation of higher-order functions, for example, Functions that take other functions as their arguments. In addition, it is possible to partially apply arguments to functions before they are called, which increases the flexibility of the Function's usage.
+
+    Note: Parameters are passed to the Function in the same order they're listed in its definition.
+
+    Syntax
+
+    <partiallyAppliedFunctionReference FunctionRef(...)>
+        := <functionReference FunctionRef(...)>.partial(<partiallyAppliedValue1 Any>
+        , ... , <partiallyAppliedValueN Any>)
+    Returns
+    The partially-applied Function reference to a Model's function, which uses specified types of parameters.
+
+    Parameters
+
+    functionReference - The Function reference to a Model's function, which uses specified types of parameters
+
+    partiallyAppliedValueX - The partially-applied values identifier
+
+    Example
+
+
+    stepdef "partially add 1 to the value {}" / numberExample /
+        partiallyAppliedFunction := PartialAddModel::add.partial(1)
+        result := partiallyAppliedFunction(numberExample)
+        println(result)
+    end
+
+    model PartialAddModel
+        func add(a, b)
+          return a + b
+        end
+    end
+    In the example above, the value 1 will be partially applied to the Function PartialAddModel.add(a, b) and assigned to the Function's parameter a. The step definition's second row executes the Function by directly applying the value numberExample to the Function partiallyAppliedFunction.
+
+  tags: 
+    - stepdef
+    - technical
+  source: https://docs.qitasc.com/intactbasics/modelsandfunctions/
+
+- question: Are functions thread safe?
+  answer: > 
+    You can use reactors to ensure thread safety.
+    Reactor Blocks can be used within Steps and UI Steps Languages. They are similar to Models but their function bodies cannot contain calls to most Built-ins to ensure thread safety. Reactor functions can be referenced as well and therefore are able to be passed as parameters to other functions, as shown at the bottom of this section.
+
+    Note: The Reactor states can only be simple data types, such as number, string, boolean or regex.
+
+    Syntax
+
+
+    reactor <reactorName Identifier>
+        func <reactorFunction Identifier>(<parameter1 ImmutableType>, ... , parameterN ImmutableType>)
+              THREAD SAFE BLOCK
+        end
+        ...
+    end
+    Parameters
+
+    reactorName - A unique identifier assigned to the reactor which should not overlap with model names
+
+    reactorFunction - The reactor function's identifier
+
+    parameterX - The parameters passed to the THREAD SAFE BLOCK
+
+    The reactor states can only be immutable types, such as number, string, boolean or regex
+    Example
+
+
+    stepdef "gauss sum formula result of the value: {}" / gaussNumber /
+        GaussReactorFunction := GaussSumReactor::gaussianFormula(gaussNumber)
+        println(GaussSumReactor.result)
+    end
+
+    reactor GaussSumReactor
+        func gaussianFormula(gaussN)
+            GaussSumReactor.result := (1 / 2) * (gaussN) * (gaussN + 1)
+        end
+    end
+    Note: The THREAD SAFE BLOCK can only access plain functions and JMS Built-in language expressions.
+  tags: 
+    - stepdef
+    - technical
+  source: https://docs.qitasc.com/intactbasics/reactors/
+
+- question: How do i check if a string matches a regular expression, in a step def?
+  answer: >
+    Matches ¶
+
+    Checks if the string Matches the given regular expression.
+
+    Syntax
+
+    <result Boolean> := <string String>.matches(<regex String>)
+    Returns
+    true if the string matches the regular expression, false otherwise.
+
+    Parameters
+
+    string - The string being matched against the regex
+
+    regex - The regex to be matched
+
+    Example
+
+
+    helloWorldString := "hello.world"
+    matchesResult := helloWorldString.matches("hello.*")
+    The example above returns true.
+
+  tags: 
+    - stepdef
+    - technical
+  source: https://docs.qitasc.com/intactbasics/stringmethods/#matches
+
+- question: How do i check if the scenario is passed in an after hook?
+  answer: >
+    You can call the isPassed()(returns true or false) method on a scenarioResult object
+    Example:  
+    model AfterScenarioHookModel
+      @After func after(result)
+        println("Scenario passed:" + result.isPassed())
+      end
+    end
+
+  tags: 
+    - stepdef
+    - technical
+  source: https://docs.qitasc.com/intactbasics/scenariohooks/
+
+- question: How do i delay the execution of a step by 10 seconds?
+  answer: >
+    The timed element is indicated by applying after to a command or element. The timed and deferred elements can be used for a selection of Steps.
+
+    Example
+    And after 10 seconds, A answers the incoming call
+
+  tags: 
+    - stepdef
+    - technical
+  source: https://docs.qitasc.com/intactsteps/introduction/
+
+- question: What do i use to automate web pages with intaQt?
+  answer: >
+    intaQt's UI Steps Language is used for automating webpages and apps. Using selectors such as XPaths, 
+    it locates and controls the content and behavior of the webpage or app.
+    The UI Steps language automates webpages and apps accessed by web browsers and mobile devices by:
+    - Defining Elements from webpages and the Actions that can be performed on them in a View.
+    - Creating Stepdefs, Models or Functions that call these Elements and their Actions.
+    - Creating Feature Files to execute the test.
+
+  tags: 
+    - stepdef
+    - technical
+  source: https://docs.qitasc.com/intactsteps/webselenium/
+
+- question: How do i configure selenium for web testing?
+  answer: >
+    Syntax:
+    Selenium = {
+        iePath = <String>
+        chromePath = <String>
+        chromeOptions = [<String>, ...]
+        firefoxPath = <String>
+        fireFoxOptions = [<String>, ...]
+        firefoxProfilePath = <String>
+        apksPath = <String>
+        edgePath = <String>
+        edgeOptions = [<String>, ...]
+    }
+    Parameters
+
+    iePath - The path to the Selenium driver for Internet Explorer
+
+    This may be in the intaQt configuration or a project's configuration file
+    chromePath - The path to the Selenium ChromeDriver
+
+    This may be in the intaQt configuration or a project's configuration file
+    chromeOptions (Optional) - A comma-separated list of Chrome browser options, for example, "incognito"
+
+    firefoxPath - The path to the Firefox GeckoDriver
+
+    firefoxOptions (Optional) - A comma-separated list of Firefox browser options, for example, "-private"
+
+    firefoxProfilePath (Optional) - The path to the Firefox profile
+
+    The custom profile path can be obtained in the Firefox Profile Manager
+    apksPath - The path to where APKs (Android application packages) are stored
+
+    If the path is reconfigured while running intaQt, the Selendroid service will shut down and relaunched on demand
+    edgePath - The path to the Selenium driver for Edge
+
+    edgeOptions (Optional) - A comma-separated list of Edge browser options
+
+  tags: 
+    - stepdef
+    - technical
+  source: https://docs.qitasc.com/intactsteps/webselenium/
+
+- question: Give me a demonstration of ui steps.
+  answer: >
+    stepdef "enter searchstring {} on google" / stepSearchString /
+      myView := open MyGoogle
+      delay(2)
+      // Add 2 seconds delay before executing the next command line.
+      GoogleModel.performSearch(stepSearchString)
+    end
+
+    view MyGoogle
+      url "http://www.google.at"
+      elem searchField  := "//*[@id='lst-ib']"
+      // The id of the google searchbar is "lst-ib".
+      action (searchField)  defineSearchText := type
+      action (searchField)  clearSearchText  := clear
+      action (searchField)  doSearch         := submit
+    end
+
+    model GoogleModel
+      func performSearch(stepSearchString)
+        myView := await MyGoogle
+        delay(2)
+        myView.defineSearchText(stepSearchString)
+        delay(2)
+        myView.doSearch()
+        delay(2)
+        myView.clearSearchText()
+      end
+    end
+  tags: 
+    - stepdef
+    - technical
+  source: https://docs.qitasc.com/intactsteps/webselenium/
+
+- question: How do i select a specific phone while phone testing?
+
+  answer: >
+    Specific phones (local, remote or Snom) may be addressed by defining additional criteria after declaring the phone type.
+
+    Note: If intaQt is running, a full list of available properties can be accessed by default at localhost:8080/phones. 
+
+    Syntax:
+    a[n] <phoneType Identifier> phone as
+      <name Identifier> where <criterion Expression> <operator Operator> <value String>
+
+    Parameters
+    phoneType - The device (such as Android, Snom or S5) that is being addressed
+    name - The name assigned to the phone
+    criterion - The criterion that the phone selection is based on, which is an expression
+
+    For example, phone properties (such as phone number, MSISDN or serial number) or subscriber properties
+    operator - A Comparison Operator or Logical operator used to compare the criterion against its value
+
+    For example == for equal or != for not equal
+    value - The selection criterion, such as the assigned phone's telephone number or network operator
+
+    Example
+    Given an Android phone as A where number == "+431234567"
+      And an Android phone as B where nop == "o2"
+      And an Android phone as C where number == "+432222222" && nop == "tele2"
+      And an Android phone as D where tariff == ${tariffUnderTest}
+
+    In the example above:
+    number, nop and tariff are criteria
+    ==is a comparison operator
+    && is a logical operator
+
+    The number (assigned to phone A and C) or network operator ( assigned to phones B and C) are the values
+  tags: 
+    - stepdef
+    - technical
+  source: https://docs.qitasc.com/intactsteps/addressphonesteps/
+
+
+
+- question: How do i make sure a phone is using 4G?
+  answer: >
+    The registered in Step Detail sets the preferred network type on the phone and can be combined
+     with any of the other ensure settings Step Details.
+
+    Syntax:
+    And ensure settings on phone <phone Identifier>:
+        * registered in <networkType String|ContextObject>
+    Parameters
+    phone - The name assigned to the phone
+
+    networkType - Sets the phone's preferred network type either to 2G, 3G or 4G
+
+    Example
+
+
+    Feature: MyCall
+    Scenario: Compound Call
+
+        Given phones as A and B:
+          * of type Android
+
+        And ensure settings on phone A:
+          * with airplane mode disabled
+          * registered in 4G
+
+        And wait 15 seconds
+
+        And A starts a call to B as MYCALL:
+          * detect incoming call within 10 seconds
+  tags: 
+    - stepdef
+    - technical
+  source: https://docs.qitasc.com/intactsteps/compoundensure/
+
+
+- question: How to reject a call within a scenario?
+  answer: >
+    Syntax
+
+
+    <calledParty identifier> rejects the incoming call
+    Parameter
+
+    calledParty - The phone rejecting the incoming call
+    Example
+
+    Feature: Basic call
+
+      Scenario: Phone call with reject
+
+        Given an Android phone as A
+          And an Android phone as B
+
+        When A dials the number B.number
+          And within 20 seconds, B detects an incoming call from A.number
+          And after 5 seconds, B rejects the incoming call
+          And within 15 seconds, A's call is rejected
+
+        Then verify !A.isConnected()
+        Then verify !B.isConnected()
+
+    This step is eligible for: Timed, Deferred
+
+    Note: When the call is rejected, neither of the phones connect, although the callee must detect
+    a call while in the ringing state. This step might be used when writing a call forwarding test
+    case. For example, when B rejects the call, which is then forwarded to C. A and C will then be
+    connected when C answers the forwarded call.
+  tags:
+    - technical
+    - stepdef
+  source: https://docs.qitasc.com/intactsteps/call/
+
+- question: I want to switch between an active and a holding call.
+  answer: >
+    Syntax
+
+
+    <name Identifier> switches the active and holding call
+    Parameter
+
+    name - The name assigned to the phone switching between the active and holding call
+    Example
+
+
+    Feature: holdAndToggle
+
+      Scenario: HoldAndToggle
+
+        Given an Android phone as A
+          And an Android phone as B
+          And an Android phone as C
+
+        When A dials the number B.number
+          And within 35 seconds, B detects an incoming call from A.number
+          And after 1 seconds, B answers the incoming call
+          And within 5 seconds, A connects
+          And after 5 seconds, A holds the call
+          And after 4 seconds, A dials the number C.number
+          And within 35 seconds, C detects an incoming call from A.number
+          And after 4 seconds, C answers the incoming call
+          And after 10 seconds, A switches the active and holding call
+          And after 10 seconds, A switches the active and holding call
+          And after 10 seconds, A switches the active and holding call
+          And after 25 seconds, A ends the call and, within 60 seconds, he
+          and B disconnect
+          And after 10 seconds, A ends the call and, within 60 seconds, he
+          and C disconnect
+
+        Then verify !A.isConnected()
+          And verify !B.isConnected()
+          And verify !C.isConnected()
+    This step is eligible for: Timed, Deferred
+  tags:
+    - technical
+    - stepdef
+  source: https://docs.qitasc.com/intactsteps/call/
+

@@ -228,33 +228,6 @@
 
   source: https://docs.qitasc.com/configuration/contextobjects/
 
-- question: I want to override a built in customstep.
-  answer: >
-    You can deactivate built-in steps and define your own custom steps.
-    intaQt's built-in Compound Steps are activated by default. These can be replaced by a 
-    Custom Implementation written in the Steps Language when default Steps are deactivated in the Glue configuration.
-
-    Syntax:
-    Glue = {
-        builtinTelephonySteps : <String>
-    }
-
-    Parameter:
-    builtinTelephonySteps - Whether intaQt's built-in Compound Steps are available or not
-    Must be one of "activated" or "deactivated"
-    Example:
-    Glue = {
-        path : ["/home/user/QiTASC/intaqt/customsteps"]
-        builtinTelephonySteps : "activated"
-    }
-
-
-  tags:
-    - config
-    - intaQt
-    - technical
-
-  source: https://docs.qitasc.com/configuration/glue/
 
 - question: How do i change the port of the intaQt's http server?
   answer: >
@@ -362,6 +335,20 @@
     connected both to each other and to the same machine running intaQt. 
     The Speech Channel Module Compound Steps can then be used to monitor the speech channels.
 
+  tags:
+    - technical
+    - audio
+  source: https://docs.qitasc.com/configuration/speechchannel/
+
+- question: How do i physically setup the devices for speech channel monitoring?
+  answer: >
+    - Each Speech Channel Module must be connected to a mobile phone or Snom via the phone's headphone jack.
+
+    - Each mobile phone must be connected via USB to a machine running intaQt, or to a machine running an intaQt Phone Service.
+
+    - Each Speech Channel Module must be connected via mini USB to a machine running intaQt, or to a machine running an intaQt Phone Service.
+
+    - The Speech Channel Module and its associated mobile device must be connected via USB to the machine running intaQt or an intaQt Phone Service. This must be the same machine where the Speech channel module is configured.
   tags:
     - technical
     - audio
