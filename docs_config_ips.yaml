@@ -9,7 +9,7 @@
 
   source: https://docs.qitasc.com/configuration/intaqtphoneservice/
 
-- question: How do i connect intaQt to a Remote Phone Instance?
+- question: How do i connect intaQt to a Remote Phone Service Instance?
   answer: >
     Syntax:
     RemotePhoneServices {
